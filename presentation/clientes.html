@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clientes</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel='stylesheet' type='text/css' href='../css/main.css'>
+        <script src='../domains/main.js' type='text/javascript'></script>
+        <script src='../domains/database.js' type='text/javascript'></script>
+        <script src='../domains/consultas.js' type='text/javascript'></script>
+        <script type='text/javascript'>
+            function toggleMenu() {
+                var menu = document.getElementById('menu');
+                if (menu.style.display == 'block') {
+                    menu.style.display = 'none'
+                } else {
+                    menu.style.display = 'block'
+                }
+            }
+        </script>
+    </head>
+    
+    <body onload="loadAllClientes()">
+        <div id="header">
+            <img src="../images/menu.png" alt="menuLogo" style="z-index: 2;" onclick="toggleMenu()" id="menuLogo">
+            <center>
+                <p class="title">Clientes</p>
+            </center>
+        </div>
+        
+        <div id="menu">
+            <button onclick="window.location.href='clientes.html'">Clientes</button><br>
+            <button onclick="window.location.href='vendedores.html'">Vendedores</button><br>
+            <button onclick="window.location.href='propiedades.html'">Propiedades</button><br>
+            <button onclick="window.location.href='ventas.html'">Ventas</button><br><br>
+            <button onclick="showTransacciones()">Transacciones</button><br>
+            <button onclick="showMasCostosa()">Venta mas cara</button><br>
+            <button onclick="showFiltros()">Filtrar</button><br>
+        </div>
+
+        <div id="content">
+            <center>
+                <table border="3">
+                    <tr>
+                        <td>
+                            <p>Nombre:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cNombre" class="sellInput">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Apellido:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cApellido" class="sellInput">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>CI:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cCI" class="sellInput">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Direccion:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cDireccion" class="sellInput">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Telefono:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cTelefono" class="sellInput">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>E-mail:</p>
+                        </td>
+                        <td>
+                            <input type="text" id="cEmail" class="sellInput">
+                        </td>
+                    </tr>
+                </table>
+
+                <button onclick="clientesAdd()" class="sellBtns">Añadir</button>
+                <button onclick="clientesRemove()" class="sellBtns">Eliminar</button>
+                <button onclick="clientesModify()" class="sellBtns">Modificar</button>
+                <button onclick="clearClientes()" class="sellBtns">Limpiar</button>
+
+
+                <br>
+                <select id="dbClientes" size="500" onclick="selCliente()"></select>
+                <br>
+                <br>
+            </center>
+        </div>
+        <img src="../images/xbg.jpg" id="xbg">
+    </body>
+</html>

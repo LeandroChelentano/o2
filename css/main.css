@@ -1,0 +1,209 @@
+:root {
+    font-family: 'Hind Madurai', sans-serif;
+    font-size: 400;
+}
+
+body {
+    margin: 0px;
+    background-color: rgb(204, 204, 204);
+}
+
+/* home */
+
+#homeContent {
+    position: absolute;
+    height: 40%;
+    width: 20%;
+    top: 30%;
+    left: 40%;
+
+    /* border: 1px solid black; */
+}
+
+#homeContent center img {
+    height: 200px;
+}
+
+#homeContent center button {
+    position: relative;
+
+
+    padding: 2%;
+    font-weight: 500;
+    border: 1px solid black;
+    border-radius: 0px;
+}
+
+#autoria {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 2%;
+
+    font-weight: 500;
+    font-size: 1.3em;
+}
+
+#homebg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* header */
+
+#header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 7%;
+    width: 100%;
+    
+    background-color: #161F6D;
+}
+
+#menuLogo {
+    position: absolute;
+    height: 50%;
+    margin: 1%;
+    margin-left: 1%;
+    z-index: 5;
+
+    color: white;
+}
+
+#header center p {
+    position: static;
+
+    margin: 0.65%;
+    font-size: 2vw;
+    font-weight: 600;
+
+    color: white;
+}
+
+#menu {
+    position: absolute;
+    top: 7%;
+    left: 0px;
+    height: 10%;
+    width: 15%;
+
+    display: none;
+    z-index: 2;
+}
+
+#menu button {
+    height: 33%;    
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+/* ventas */
+
+#content {
+    position: absolute;
+    height: fit-content;
+    width: 70%;
+    top: 7%;
+    left: 15%;
+
+    background-color: #00ABE1;
+}
+
+#contentV {
+    position: absolute;
+    /* height: 93%; */
+    height: fit-content;
+    width: 70%;
+    top: 7%;
+    left: 15%;
+
+    background-color: #00ABE1;
+}
+
+#contentV center table, #content center table{
+    margin: 2%;
+    width: 50%;
+    background-color: white;
+}
+
+#one {
+    width: 40%;
+}
+    
+#contentV center table tr td p, #content center table tr td p {
+    margin: 5%;
+    margin-right: 20%;
+    margin-left: 10%;
+}
+
+#content center tr td input[type=radio] { /* For chechk too */
+    border: 0px;
+    width: 100%;
+    height: 1em;
+    width: 2em;
+}
+
+#content center tr td input[type=checkbox] { /* For chechk too */
+    border: 0px;
+    width: 100%;
+    height: 1em;
+    width: 2em;
+}
+
+#content center table tr td input, #contentV center table tr td input {
+    width: 97%;
+    height: 40px;
+}
+
+#content center table tr td select, #contentV center table tr td select {
+    width: 100%;
+    height: 40px;
+}
+
+#content center button, #contentV center button {
+    margin: 2%;
+    margin-top: 0px;
+    width: 10%;
+    padding: 0.7%;
+    border-radius: 0px;
+    border: 1px solid black;
+}
+
+#cartera {
+    border: 1px solid black;
+    background-color: white;
+    width: 20%;
+}
+
+#cartera input {
+    width: 80%;
+    margin: 3%;
+}
+
+#cartera p {
+    margin: 5%;
+    margin-bottom: 1%;
+}
+
+#dbVentas, #dbPropiedades, #dbClientes, #dbVendedores {
+    height: 200px;
+    width: 70%;
+}
+
+#xbg {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+
+    filter: blur(1px);
+
+    z-index: -1;
+}

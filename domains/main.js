@@ -373,9 +373,10 @@ function getData() {
         tipo = '';
     }
     
+    barrio = barrios[document.getElementById('propertiesBarrio').selectedIndex].Id;
+    ciudad = barrios[document.getElementById('propertiesBarrio').selectedIndex].Ciudad;
+    
     direccion = document.getElementById('propertiesDireccion').value;
-    barrio = document.getElementById('propertiesBarrio').value;
-    ciudad = document.getElementById('propertiesCiudad').value;
     metros = document.getElementById('propertiesMetros').value;
     dormitorios = document.getElementById('propertiesDormitorios').value;
     banos = document.getElementById('propertiesBanos').value;
@@ -427,59 +428,83 @@ function refrescarPropiedades() {
     loadPropiedades();
     loadClientes();
 
+    displayBarrios();
     showProperties();
+}
+
+function displayBarrios() {
+    var db = document.getElementById('propertiesBarrio');
+    db.innerHTML = '';
+    for (let i = 0; i < barrios.length; i++) {
+        var line = document.createElement('option');
+        line.text = `#${barrios[i].Id} | ${barrios[i].Nombre}`;
+        db.add(line);
+    }
+}
+    
+function displayCiudad() {
+    var index = document.getElementById('propertiesBarrio').selectedIndex;
+    for (let i = 0; i < ciudades.length; i++) {
+        if (ciudades[i].Id == barrios[index].Ciudad) {
+            document.getElementById('propertiesCiudad').value = `#${ciudades[i].Id} - ${ciudades[i].Nombre}`;
+        }
+    }
 }
 
 function propertiesAdd() {
     getData();
-    arrEmpty.push(tipo, direccion, barrio, ciudad, metros, dormitorios, banos, garage, parrillero, wifi, mascotas, precio)
-    if (empty()) {
-        alert('Hay elementos en blanco.')
+    if (document.getElementById('propertiesBarrio').selectedIndex == -1) {
+        alert('Hay elementos en blanco.');
     } else {
-        arrInteger.push(metros, banos, dormitorios, precio)
-        if (integer()) {
-            alert('La extencion, cantidad de baños, dormitorios y el precio deben ser en formato numerico.')
+        arrEmpty.push(tipo, direccion, metros, dormitorios, banos, garage, parrillero, wifi, mascotas, precio)
+        if (empty()) {
+            alert('Hay elementos en blanco.');
         } else {
-            var x = false;
-            for(let i = 0; i < propiedades.length; i++)
-            {
-                if (direccion == propiedades[i].Direccion)
+            arrInteger.push(metros, banos, dormitorios, precio)
+            if (integer()) {
+                alert('La extencion, cantidad de baños, dormitorios y el precio deben ser en formato numerico.')
+            } else {
+                var x = false;
+                for(let i = 0; i < propiedades.length; i++)
                 {
-                    alert(`La direccion ${direccion} ya se encuentra en la lista de propiedades`);
-                    x = true
-                }
-            }
-            if (x == false) {
-                var newId = propiedades.length + propiedadesBackup.length;
-
-                propiedades.push({
-                    Id          : newId,
-                    Tipo        : tipo,
-                    Direccion   : direccion,
-                    Barrio      : barrio,
-                    Ciudad      : ciudad,
-                    Metros      : parseInt(metros),
-                    Dormitorios : parseInt(dormitorios),
-                    Banos       : parseInt(banos),
-                    Garage      : garage,
-                    Parrillero  : parrillero,
-                    Wifi        : wifi,
-                    Mascotas    : mascotas,
-                    Precio      : parseInt(precio),
-                    Propietario : parseInt(propietario),
-                    Vendida     : 0 
-                })
-
-                // propietario por id
-                for (let i = 0; i < clientes.length; i++) {
-                    if (clientes[i].Id == propietario) {
-                        clientes[i].Uso = clientes[i].Uso + 1;
+                    if (direccion == propiedades[i].Direccion)
+                    {
+                        alert(`La direccion ${direccion} ya se encuentra en la lista de propiedades`);
+                        x = true
                     }
                 }
-                saveClientes();
+                if (x == false) {
+                    var newId = propiedades.length + propiedadesBackup.length;
 
-                alert('La propiedad se ingreso correctamente.')
-                refrescarPropiedades()
+                    propiedades.push({
+                        Id          : newId,
+                        Tipo        : tipo,
+                        Direccion   : direccion,
+                        Barrio      : barrio,
+                        Ciudad      : ciudad,
+                        Metros      : parseInt(metros),
+                        Dormitorios : parseInt(dormitorios),
+                        Banos       : parseInt(banos),
+                        Garage      : garage,
+                        Parrillero  : parrillero,
+                        Wifi        : wifi,
+                        Mascotas    : mascotas,
+                        Precio      : parseInt(precio),
+                        Propietario : parseInt(propietario),
+                        Vendida     : 0 
+                    })
+
+                    // propietario por id
+                    for (let i = 0; i < clientes.length; i++) {
+                        if (clientes[i].Id == propietario) {
+                            clientes[i].Uso = clientes[i].Uso + 1;
+                        }
+                    }
+                    saveClientes();
+
+                    alert('La propiedad se ingreso correctamente.')
+                    refrescarPropiedades()
+                }
             }
         }
     }
@@ -516,9 +541,23 @@ function selectP() {
         document.getElementById('v2').checked = true;
     }
     
-    direccion = document.getElementById('propertiesDireccion').value = propiedades[index].Direccion;
-    document.getElementById('propertiesBarrio').value = propiedades[index].Barrio;
-    document.getElementById('propertiesCiudad').value = propiedades[index].Ciudad;
+    document.getElementById('propertiesDireccion').value = propiedades[index].Direccion;
+
+    for (let i = 0; i < barrios.length; i++) {
+        if (barrios[i].Id == propiedades[index].Barrio) {
+            document.getElementById('propertiesBarrio').selectedIndex = i;
+        }
+    }
+    
+    for (let i = 0; i < ciudades.length; i++) {
+        if (ciudades[i].Id == propiedades[index].Ciudad) {
+            document.getElementById('propertiesCiudad').value = `#${ciudades[i].Id} | ${ciudades[i].Nombre}`;
+        }
+    }
+    
+    // document.getElementById('propertiesBarrio').value = propiedades[index].Barrio;
+    // document.getElementById('propertiesCiudad').value = propiedades[index].Ciudad;
+    
     document.getElementById('propertiesMetros').value = propiedades[index].Metros;
     document.getElementById('propertiesDormitorios').value = propiedades[index].Dormitorios;
     document.getElementById('propertiesBanos').value = propiedades[index].Banos;
@@ -604,54 +643,58 @@ function propertiesModify() {
     // loadVentas();
     var index = document.getElementById('dbPropiedades').selectedIndex;
     getData();
-    arrEmpty.push(tipo, direccion, barrio, ciudad, metros, dormitorios, banos, garage, parrillero, wifi, mascotas, precio)
-    if (empty()) {
+    if (document.getElementById('propertiesBarrio').selectedIndex == -1) {
         alert('Hay elementos en blanco.')
     } else {
-        arrInteger.push(metros, banos, dormitorios, precio)
-        if (integer()) {
-            alert('La extencion, cantidad de baños, dormitorios y el precio deben ser en formato numerico.')
+        arrEmpty.push(tipo, direccion, metros, dormitorios, banos, garage, parrillero, wifi, mascotas, precio)
+        if (empty()) {
+            alert('Hay elementos en blanco.')
         } else {
-            var x = false;
-            for(let i = 0; i < propiedades.length; i++) {
-                if (direccion == propiedades[i].Direccion && direccion != propiedades[index].Direccion) {
-                    alert(`La direccion ${direccion} ya se encuentra en la lista de propiedades`);
-                    x = true
-                }
-            }
-            if (x == false) {
-                for (let i = 0; i < clientes.length; i++) {
-                    if (clientes[i].Id == propiedades[index].Propietario) {
-                        clientes[i].Uso = clientes[i].Uso - 1;
+            arrInteger.push(metros, banos, dormitorios, precio)
+            if (integer()) {
+                alert('La extencion, cantidad de baños, dormitorios y el precio deben ser en formato numerico.')
+            } else {
+                var x = false;
+                for(let i = 0; i < propiedades.length; i++) {
+                    if (direccion == propiedades[i].Direccion && direccion != propiedades[index].Direccion) {
+                        alert(`La direccion ${direccion} ya se encuentra en la lista de propiedades`);
+                        x = true
                     }
                 }
-
-                propiedades[index] = ({
-                    Id          : propiedades[index].Id,
-                    Tipo        : tipo,
-                    Direccion   : direccion,
-                    Barrio      : barrio,
-                    Ciudad      : ciudad,
-                    Metros      : parseInt(metros),
-                    Dormitorios : parseInt(dormitorios),
-                    Banos       : parseInt(banos),
-                    Garage      : garage,
-                    Parrillero  : parrillero,
-                    Wifi        : wifi,
-                    Mascotas    : mascotas,
-                    Precio      : parseInt(precio),
-                    Propietario : parseInt(propietario),
-                    Vendida     : propiedades[index].Vendida
-                })
-
-                for (let i = 0; i < clientes.length; i++) {
-                    if (clientes[i].Id == propietario) {
-                        clientes[i].Uso = clientes[i].Uso + 1;
+                if (x == false) {
+                    for (let i = 0; i < clientes.length; i++) {
+                        if (clientes[i].Id == propiedades[index].Propietario) {
+                            clientes[i].Uso = clientes[i].Uso - 1;
+                        }
                     }
+    
+                    propiedades[index] = ({
+                        Id          : propiedades[index].Id,
+                        Tipo        : tipo,
+                        Direccion   : direccion,
+                        Barrio      : barrio,
+                        Ciudad      : ciudad,
+                        Metros      : parseInt(metros),
+                        Dormitorios : parseInt(dormitorios),
+                        Banos       : parseInt(banos),
+                        Garage      : garage,
+                        Parrillero  : parrillero,
+                        Wifi        : wifi,
+                        Mascotas    : mascotas,
+                        Precio      : parseInt(precio),
+                        Propietario : parseInt(propietario),
+                        Vendida     : propiedades[index].Vendida
+                    })
+    
+                    for (let i = 0; i < clientes.length; i++) {
+                        if (clientes[i].Id == propietario) {
+                            clientes[i].Uso = clientes[i].Uso + 1;
+                        }
+                    }
+    
+                    alert('La propiedad se ha modificado correctamente.')
+                    refrescarPropiedades()
                 }
-
-                alert('La propiedad se ha modificado correctamente.')
-                refrescarPropiedades()
             }
         }
     }
@@ -846,9 +889,6 @@ function showVentas() {
     }
 }
 
-
-
-
 function monto() {
     var index = document.getElementById('sellPropiedad').selectedIndex;
     var box = document.getElementById('sellMonto');
@@ -860,3 +900,266 @@ function monto() {
 
 
 
+
+
+
+
+
+var ciudades = new Array();
+var idCiudades = new Array();
+
+var ciudadNombre;
+
+function refrescarCiudadesBarrios() {
+    barrioClear();
+    ciudadClear();
+
+    savePropiedades();
+    saveCiudades();
+    saveIdCiudades();
+    saveBarrios();
+    saveIdBarrios();
+    
+    loadPropiedades();
+    loadCiudades();
+    loadIdCiudades();
+    loadBarrios();
+    loadIdBarrios();
+
+    cargarCiudadesEnSel();
+
+    showBarrios();
+    showCiudades();
+}
+
+function getCiudades() {
+    ciudadNombre = document.getElementById('ciudadNombre').value;
+}
+
+function ciudadAdd() {
+    getCiudades();
+    if (ciudadNombre == '') {
+        alert('El nombre esta vacio.');
+    } else {
+        var existence = false;
+        for (let i = 0; i < ciudades.length; i++) {
+            if (ciudades[i].Nombre == ciudadNombre) {
+                existence = true;
+            } 
+        }
+        if (existence == true) {
+            alert('Nombre ya utilizado.');
+        } else {
+            var newId = idCiudades.length;
+            idCiudades.push(newId);
+
+            ciudades.push({
+                Id: newId,
+                Nombre: ciudadNombre,
+                Uso: 0
+            })
+
+            refrescarCiudadesBarrios();
+        }
+    }
+}
+
+function ciudadRemove() {
+    var index = document.getElementById('dbCiudades').selectedIndex;
+    if (ciudades[index].Uso > 0) {
+        alert('No puedes eliminar una ciudad en uso.')
+    } else {
+        ciudades.splice(index, 1);
+        refrescarCiudadesBarrios();
+    }
+} 
+
+function ciudadModify() {
+    getCiudades();
+    var index = document.getElementById('dbCiudades').selectedIndex;
+    var existence = false;
+    for (let i = 0; i < ciudades.length; i++) {
+        if (ciudades[i].Nombre == ciudadNombre && ciudades[i].Nombre != ciudades[index].Nombre) {
+            existence = true;
+        } 
+    }
+    if (existence == true) {
+        alert('Nombre en uso.')
+    } else {
+        ciudades[index].Nombre = ciudadNombre;
+        refrescarCiudadesBarrios();
+    }
+}
+
+function ciudadClear() {
+    document.getElementById('ciudadNombre').value = '';
+}
+
+function showCiudades() {
+    var db = document.getElementById('dbCiudades');
+    db.innerHTML = '';
+    for (let i = 0; i < ciudades.length; i++) {
+        var line = document.createElement('option');
+        line.text = `#${ciudades[i].Id} | ${ciudades[i].Nombre}`;
+        db.add(line);
+    }
+}
+
+function selCiudad() {
+    var index = document.getElementById('dbCiudades').selectedIndex;
+    document.getElementById('ciudadNombre').value = ciudades[index].Nombre;
+}
+
+function cargarCiudadesEnSel() {
+    var db = document.getElementById('barrioCiudad');
+    db.innerHTML = '';
+    for (let i = 0; i < ciudades.length; i++) {
+        var line = document.createElement('option');
+        line.text = `#${ciudades[i].Id} | ${ciudades[i].Nombre}`;
+        db.add(line);
+    }
+}
+
+
+
+
+
+
+
+
+
+var barrios = new Array();
+var idBarrios = new Array();
+
+var barrioNombre;
+var barrioCiudad;
+
+function getBarrios() {
+    barrioNombre = document.getElementById('barrioNombre').value;
+    var index = document.getElementById('barrioCiudad').selectedIndex;
+    barrioCiudad = ciudades[index].Id; 
+}
+
+function barrioAdd() {
+    getBarrios();
+    if (barrioNombre == '') {
+        alert('Hay elementos vacios.');
+    } else {
+        var newId = idBarrios.length;
+        idBarrios.push(newId);
+
+        for (let i = 0; i < ciudades.length; i++) {
+            if (ciudades[i].Id == barrioCiudad) {
+                ciudades[i].Uso = ciudades[i].Uso + 1;
+            }
+        }
+
+        barrios.push({
+            Id: newId,
+            Nombre: barrioNombre,
+            Ciudad: barrioCiudad
+        })
+
+        refrescarCiudadesBarrios();
+    }
+}
+
+function barrioRemove() {
+    var index = document.getElementById('dbBarrios').selectedIndex;
+    var existence = false;
+    for (let i = 0; i < ventas.length; i++) {
+        if (ventas[i].Barrio == barrios[index].Id) {
+            existence = true;
+        }
+    }
+    if (existence == true) {
+        alert('No puedes eliminar un barrio en uso.')
+    } else {
+        for (let i = 0; i < ciudades.length; i++) {
+            if (ciudades[i].Id == barrios[index].Ciudad) {
+                ciudades[i].Uso = ciudades[i].Uso - 1;
+            }
+        }
+        barrios.splice(index, 1);
+    }
+    refrescarCiudadesBarrios();
+} 
+
+function barrioModify() {
+    getBarrios();
+    var index = document.getElementById('dbBarrios').selectedIndex;
+    if (document.getElementById('barrioNombre') == '') {
+        alert('Hay elementos en blanco.');
+    } else {
+        var existence = false;
+        for (let i = 0; i < ventas.length; i++) {
+            if (ventas[i].Barrio == barrios[index].Id) {
+                existence = true;
+            }
+        }
+        if (existence == true) {
+            alert('No puedes eliminar un barrio en uso.')
+        } else {
+            // si hay propiedad que tiene este barrio, cambiar ciudad
+            for (let i = 0; i < propiedades.length; i++) {
+                if (propiedades[i].Barrio == barrios[index].Id) {
+                    propiedades[i].Ciudad = barrioCiudad
+                }
+            }
+
+            for (let i = 0; i < ciudades.length; i++) {
+                if (ciudades[i].Id == barrios[index].Ciudad) {
+                    ciudades[i].Uso = ciudades[i].Uso - 1;
+                }
+            }
+
+            barrios[index] = ({
+                Id: barrios[index].Id,
+                Nombre: barrioNombre,
+                Ciudad: barrioCiudad
+            })
+
+            for (let i = 0; i < ciudades.length; i++) {
+                if (ciudades[i].Id == barrios[index].Ciudad) {
+                    ciudades[i].Uso = ciudades[i].Uso + 1;
+                }
+            }
+            refrescarCiudadesBarrios();
+        }
+    }
+    
+}
+
+function barrioClear() { //Final
+    document.getElementById('barrioNombre').value = '';
+    document.getElementById('barrioCiudad').selectedIndex = 0;
+}
+
+function showBarrios() { //Final
+    var db = document.getElementById('dbBarrios');
+    db.innerHTML = '';
+    for (let i = 0; i < barrios.length; i++) {
+        var line = document.createElement('option');
+
+        var index = 0;
+        for (let x = 0; x < ciudades.length; x++) {
+            if (ciudades[x].Id == barrios[i].Ciudad) {
+                index = x;
+            }
+        }
+
+        line.text = `#${barrios[i].Id} | ${barrios[i].Nombre} - Pretenece a: #${barrios[i].Ciudad} | ${ciudades[index].Nombre}`;
+        db.add(line);
+    }
+}
+
+function selBarrio() { //Final
+    var index = document.getElementById('dbBarrios').selectedIndex;
+    document.getElementById('barrioNombre').value = barrios[index].Nombre;
+    
+    for (let i = 0; i < ciudades.length; i++) {
+        if (ciudades[i].Id == barrios[index].Ciudad) {
+            document.getElementById('barrioCiudad').selectedIndex = i;
+        }
+    }
+}

@@ -17,8 +17,7 @@ function loadAllClientes() {
     loadClientes();
     loadClientesBackup();
     loadVendedores();
-    // loadVentas();
-    var ventas = new Array()
+    loadVentas();
     showClientes();
 }
 
@@ -35,8 +34,7 @@ function loadAllVendedores() {
     }
     loadVendedores();
     loadVendedoresBackup();
-    // loadVentas();
-    var ventas = new Array()
+    loadVentas();
     showVendedores();
 }
 
@@ -47,6 +45,20 @@ function loadAllPropiedades() {
         window.localStorage.setItem('clientes', '[]');    
     }
     loadClientes();
+
+    try {
+        window.localStorage.getItem('ciudades').length;
+    } catch(err) {
+        window.localStorage.setItem('ciudades', '[]');    
+    }
+    loadCiudades();
+
+    try {
+        window.localStorage.getItem('barrios').length;
+    } catch(err) {
+        window.localStorage.setItem('barrios', '[]');    
+    }
+    loadBarrios();
     
     try {
         window.localStorage.getItem('propiedades').length;
@@ -61,6 +73,9 @@ function loadAllPropiedades() {
     loadPropiedades();
     loadPropiedadesBackup();
     showProperties();
+
+    // for external proposes
+    displayBarrios()
 }
 
 function loadAllVentas() {
@@ -103,6 +118,45 @@ function loadAllVentas() {
     loadVentas();
     loadIdVentas();
     refrescarVentas();
+}
+
+function loadAllBarrios() {
+    try {
+        window.localStorage.getItem('ciudades').length;
+    } catch(err) {
+        window.localStorage.setItem('ciudades', '[]');    
+    }
+    try {
+        window.localStorage.getItem('idCiudades').length;
+    } catch(err) {
+        window.localStorage.setItem('idCiudades', '[]');    
+    }
+    loadCiudades();
+    loadIdCiudades();
+
+    try {
+        window.localStorage.getItem('barrios').length;
+    } catch(err) {
+        window.localStorage.setItem('barrios', '[]');    
+    }
+    try {
+        window.localStorage.getItem('idBarrios').length;
+    } catch(err) {
+        window.localStorage.setItem('idBarrios', '[]');    
+    }
+    loadBarrios();
+    loadIdBarrios();
+
+    try {
+        window.localStorage.getItem('propiedades').length;
+    } catch(err) {
+        window.localStorage.setItem('propiedades', '[]');
+    }
+    loadPropiedades();
+
+    cargarCiudadesEnSel();
+    showBarrios();
+    showCiudades();
 }
 
 // Independientes
@@ -186,6 +240,45 @@ function loadVentas() {
 
 function loadIdVentas() {
     idVentas = JSON.parse(window.localStorage.getItem('idVentas'));
+}
+
+
+
+
+function saveCiudades() {
+    window.localStorage.removeItem('ciudades');
+    window.localStorage.setItem('ciudades', JSON.stringify(ciudades));
+}
+
+function saveIdCiudades() {
+    window.localStorage.removeItem('idCiudades');
+    window.localStorage.setItem('idCiudades', JSON.stringify(idCiudades));
+}
+
+function saveBarrios() {
+    window.localStorage.removeItem('barrios');
+    window.localStorage.setItem('barrios', JSON.stringify(barrios));
+}
+
+function saveIdBarrios() {
+    window.localStorage.removeItem('idBarrios');
+    window.localStorage.setItem('idBarrios', JSON.stringify(idBarrios));
+}
+
+function loadCiudades() {
+    ciudades = JSON.parse(window.localStorage.getItem('ciudades'));
+}
+
+function loadIdCiudades() {
+    idCiudades = JSON.parse(window.localStorage.getItem('idCiudades'));
+}
+
+function loadBarrios() {
+    barrios = JSON.parse(window.localStorage.getItem('barrios'));
+}
+
+function loadIdBarrios() {
+    idBarrios = JSON.parse(window.localStorage.getItem('idBarrios'));
 }
 
 

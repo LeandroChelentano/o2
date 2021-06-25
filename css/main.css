@@ -192,7 +192,7 @@ body {
     margin-bottom: 1%;
 }
 
-#dbVentas, #dbPropiedades, #dbClientes, #dbVendedores {
+#dbVentas, #dbPropiedades, #dbClientes, #dbVendedores, #dbCiudades, #dbBarrios {
     height: 200px;
     width: 70%;
 }
@@ -270,4 +270,30 @@ body {
 
 #col {
     width: 30%;
+}
+
+#ventaCara {
+    text-align: center;
+    background-color: #c8d8e4;
+    border: 1px solid black;
+
+    display: none;
+}
+
+#ventaCara p {
+    font-family: 'Hind Madurai', sans-serif;
+    font-weight: 700;
+    margin: 3%;
+}
+
+#ventaCara input {
+    margin: 3%;
+}
+
+#sub {
+    position: relative;
+    margin-left: 25%;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-bottom: 0px;
 }

@@ -32,6 +32,34 @@
                 <p>Venta mas cara:</p>
                 <input type="text">
             </div>
+
+            <div id="filter">
+                <p class="xcc">Filtrar:</p>
+                <table border="3">
+                    <tr>
+                        <td id="xcol">
+                            <p class="xc">Barrio:</p>
+                        </td>
+                        <td>
+                            <select id="filtrarBarrio" onchange="filtrar()"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="xc">
+                            <p>Precio:</p>
+                        </td>
+                        <td>
+                            <input type="text" onchange="filtrar()" class="filterInputs" id='MontoFiltro' style="margin: 0px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <select id="dbFilter" size="50"></select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
         </div>
 
         <div id="content">

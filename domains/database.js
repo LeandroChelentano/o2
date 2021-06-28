@@ -1,137 +1,67 @@
-function loadAllClientes() {
+function loadGlobal() {
     try {
-        window.localStorage.getItem('clientes').length;
+        window.localStorage.getItem('propiedades').length;
     } catch(err) {
-        window.localStorage.setItem('clientes', '[]');    
+        window.localStorage.setItem('propiedades', '[]');
     }
+    loadPropiedades();
     try {
-        window.localStorage.getItem('clientesBackup').length;
+        window.localStorage.getItem('propiedadesBackup').length;
     } catch(err) {
-        window.localStorage.setItem('clientesBackup', '[]');    
+        window.localStorage.setItem('propiedadesBackup', '[]');
     }
+    loadPropiedadesBackup();
+    
     try {
         window.localStorage.getItem('vendedores').length;
     } catch(err) {
         window.localStorage.setItem('vendedores', '[]');    
     }
-    loadClientes();
-    loadClientesBackup();
     loadVendedores();
-    loadVentas();
-    showClientes();
-}
-
-function loadAllVendedores() {
-    try {
-        window.localStorage.getItem('vendedores').length;
-    } catch(err) {
-        window.localStorage.setItem('vendedores', '[]');    
-    }
     try {
         window.localStorage.getItem('vendedoresBackup').length;
     } catch(err) {
         window.localStorage.setItem('vendedoresBackup', '[]');    
     }
-    loadVendedores();
     loadVendedoresBackup();
-    loadVentas();
-    showVendedores();
-}
-
-function loadAllPropiedades() {
-    try {
-        window.localStorage.getItem('clientes').length;
-    } catch(err) {
-        window.localStorage.setItem('clientes', '[]');    
-    }
-    loadClientes();
-
-    try {
-        window.localStorage.getItem('ciudades').length;
-    } catch(err) {
-        window.localStorage.setItem('ciudades', '[]');    
-    }
-    loadCiudades();
-
-    try {
-        window.localStorage.getItem('barrios').length;
-    } catch(err) {
-        window.localStorage.setItem('barrios', '[]');    
-    }
-    loadBarrios();
-    
-    try {
-        window.localStorage.getItem('propiedades').length;
-    } catch(err) {
-        window.localStorage.setItem('propiedades', '[]');
-    }
-    try {
-        window.localStorage.getItem('propiedadesBackup').length;
-    } catch(err) {
-        window.localStorage.setItem('propiedadesBackup', '[]');
-    }
-    loadPropiedades();
-    loadPropiedadesBackup();
-    showProperties();
-
-    // for external proposes
-    displayBarrios()
-}
-
-function loadAllVentas() {
-    try {
-        window.localStorage.getItem('clientes').length;
-    } catch(err) {
-        window.localStorage.setItem('clientes', '[]');    
-    }
-    try {
-        window.localStorage.getItem('vendedores').length;
-    } catch(err) {
-        window.localStorage.setItem('vendedores', '[]');    
-    }
-    loadClientes();
-    loadVendedores();
-
-    try {
-        window.localStorage.getItem('propiedades').length;
-    } catch(err) {
-        window.localStorage.setItem('propiedades', '[]');
-    }
-    try {
-        window.localStorage.getItem('propiedadesBackup').length;
-    } catch(err) {
-        window.localStorage.setItem('propiedadesBackup', '[]');
-    }
-    loadPropiedades();
-    loadPropiedadesBackup();
 
     try {
         window.localStorage.getItem('ventas').length;
     } catch(err) {
         window.localStorage.setItem('ventas', '[]'); 
     }
+    loadVentas();
     try {
         window.localStorage.getItem('idVentas').length;
     } catch(err) {
         window.localStorage.setItem('idVentas', '[]'); 
     }
-    loadVentas();
     loadIdVentas();
-    refrescarVentas();
-}
 
-function loadAllBarrios() {
+    try {
+        window.localStorage.getItem('clientes').length;
+    } catch(err) {
+        window.localStorage.setItem('clientes', '[]');    
+    }
+    loadClientes();
+    try {
+        window.localStorage.getItem('clientesBackup').length;
+    } catch(err) {
+        window.localStorage.setItem('clientesBackup', '[]');    
+    }
+    loadClientesBackup();
+
     try {
         window.localStorage.getItem('ciudades').length;
     } catch(err) {
         window.localStorage.setItem('ciudades', '[]');    
     }
+    loadCiudades();
     try {
         window.localStorage.getItem('idCiudades').length;
     } catch(err) {
         window.localStorage.setItem('idCiudades', '[]');    
     }
-    loadCiudades();
     loadIdCiudades();
 
     try {
@@ -139,21 +69,43 @@ function loadAllBarrios() {
     } catch(err) {
         window.localStorage.setItem('barrios', '[]');    
     }
+    loadBarrios();
     try {
         window.localStorage.getItem('idBarrios').length;
     } catch(err) {
         window.localStorage.setItem('idBarrios', '[]');    
     }
-    loadBarrios();
     loadIdBarrios();
+}
 
-    try {
-        window.localStorage.getItem('propiedades').length;
-    } catch(err) {
-        window.localStorage.setItem('propiedades', '[]');
-    }
-    loadPropiedades();
 
+
+
+function loadAllClientes() {
+    loadGlobal();
+    showClientes();
+}
+
+function loadAllVendedores() {
+    loadGlobal();
+    showVendedores();
+}
+
+function loadAllPropiedades() {
+    loadGlobal();
+    showProperties();
+
+    // for external proposes
+    displayBarrios()
+}
+
+function loadAllVentas() {
+    loadGlobal();
+    refrescarVentas();
+}
+
+function loadAllBarrios() {
+    loadGlobal();
     cargarCiudadesEnSel();
     showBarrios();
     showCiudades();

@@ -1,3 +1,6 @@
+
+////////////////////////////////////////////////////////////////// VERIFICAR DATOS Y SI ES DATO NUMERICO
+
 var arrEmpty = new Array();
 function empty() {
     for (let i = 0; i < arrEmpty.length; i++) {
@@ -26,7 +29,7 @@ function integer() {
     }
 }
 
-// Clientes
+//////////////////////////////////////////////////////////////////// CLIENTES
 
 var clientes = new Array();
 var clientesBackup = new Array();
@@ -173,7 +176,7 @@ function clientesModify() {
 
 
 
-
+////////////////////////////////////////////////////////////// VENDEDORES
 
 
 
@@ -342,7 +345,7 @@ function vendedoresModify() {
 
 
 
-
+///////////////////////////////////////////////////////  PROPIEDADES
 
 
 
@@ -640,7 +643,6 @@ function propertiesClear() {
 
 
 function propertiesModify() {
-    // loadVentas();
     var index = document.getElementById('dbPropiedades').selectedIndex;
     getData();
     if (document.getElementById('propertiesBarrio').selectedIndex == -1) {
@@ -715,7 +717,7 @@ function loadPropietario() {
 
 
 
-
+///////////////////////////////////////////////////////////////////// VENTAS
 
 
 
@@ -823,9 +825,8 @@ function vender() {
                 }
 
                 propiedades[i].Vendida = 1;
-                propiedades[i].Propietario = c;
                 vendedores[iii].Cartera = vendedores[iii].Cartera + Math.round((3 * propiedades[i].Precio) / 100);
-
+                
                 
                 var newId = idVentas.length;
                 idVentas.push(newId);
@@ -835,10 +836,12 @@ function vender() {
                     Fecha: vFecha,
                     Propiedad: p,
                     Monto: vMonto,
+                    Anterior: propiedades[i].Propietario,
                     Comprador: c,
                     Vendedor: v
                 })
-
+                
+                propiedades[i].Propietario = c;
                 vendedores[iii].Uso = vendedores[iii].Uso + 1;
                 clientes[ii].Uso = clientes[ii].Uso + 1;
                 
@@ -901,7 +904,7 @@ function monto() {
 
 
 
-
+//////////////////////////////////////////////////////////////////// CIUDADES
 
 
 
@@ -1024,7 +1027,7 @@ function cargarCiudadesEnSel() {
 
 
 
-
+////////////////////////////////////////////////////////////////////////////////// BARRIOS
 
 
 
@@ -1045,22 +1048,33 @@ function barrioAdd() {
     if (barrioNombre == '') {
         alert('Hay elementos vacios.');
     } else {
-        var newId = idBarrios.length;
-        idBarrios.push(newId);
-
-        for (let i = 0; i < ciudades.length; i++) {
-            if (ciudades[i].Id == barrioCiudad) {
-                ciudades[i].Uso = ciudades[i].Uso + 1;
+        var exitence = false;
+        var nombreCiudad = '';
+        for (let i = 0; i < barrios.length; i++) {
+            if (barrios[i].Nombre == barrioNombre && barrios[i].Ciudad == barrioCiudad) {
+                exitence = true;
             }
         }
-
-        barrios.push({
-            Id: newId,
-            Nombre: barrioNombre,
-            Ciudad: barrioCiudad
-        })
-
-        refrescarCiudadesBarrios();
+        if (exitence) {
+            alert('Combinacion ya existente.')
+        } else {
+            var newId = idBarrios.length;
+            idBarrios.push(newId);
+    
+            for (let i = 0; i < ciudades.length; i++) {
+                if (ciudades[i].Id == barrioCiudad) {
+                    ciudades[i].Uso = ciudades[i].Uso + 1;
+                }
+            }
+    
+            barrios.push({
+                Id: newId,
+                Nombre: barrioNombre,
+                Ciudad: barrioCiudad
+            })
+    
+            refrescarCiudadesBarrios();       
+        }
     }
 }
 

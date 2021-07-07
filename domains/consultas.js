@@ -1,3 +1,4 @@
+// Funcion empleada para mostrar o ocultar el menu
 function toggleMenu() {
     var menu = document.getElementById('menu');
     if (menu.style.display == 'block') {
@@ -8,20 +9,24 @@ function toggleMenu() {
     }
 }
 
+// Funcion que oculta las transacciones
 function close3() {
     document.getElementById('transacciones').style.display = 'none'
 }
 
+// Funcion que oculta las opciones de filtro
 function closeFilter() {
     document.getElementById('filter').style.display = 'none'
 }
 
+// Funcion que muetra y carga los componentes referentes a las consultas de transacciones
 function showTransacciones() {
     toggleMenu();
     document.getElementById('transacciones').style.display = 'block'
     loadTransaccionesClientes();
 }
 
+// Funcion que muestra o oculta la estadistica de venta mas cara
 function showMasCostosa() {
     document.getElementById('filter').style.display = 'none';
     if (document.getElementById('ventaCara').style.display == 'block') {
@@ -32,6 +37,7 @@ function showMasCostosa() {
     }
 }
 
+// Funcion que muestra o oculta la estadistica de filtro
 function showFiltros() {
     document.getElementById('ventaCara').style.display = 'none';
     if (document.getElementById('filter').style.display == 'block') {
@@ -40,7 +46,6 @@ function showFiltros() {
         document.getElementById('filter').style.display = 'block';
         loadFilter();
     }
-    // loadFilter();
 }
 
 // Consultas
@@ -75,6 +80,7 @@ function transaccion() {
     }
 }
 
+// Funcion empleada para cargar los clientes, para seleccion de muestra de transacciones
 function loadTransaccionesClientes() {
     var db = document.getElementById('consultaClientes');
     db.innerHTML = '';
@@ -111,6 +117,7 @@ function ventaMasCara() {
     }
     document.getElementById('VentaMasCara').value = textoVentaCara;
 }
+
 // 5. Dado el nombre de un barrio y un monto de dinero,
 // mostrar las propiedades que están a la venta por debajo de ese precio en esa ciudad.
 function filtrar() {
@@ -137,6 +144,7 @@ function filtrar() {
     }
 }
 
+// Funcion que carga los barrios en el ligar correspondiente para posterios selccion con el filtro
 function loadFilter() {
     var db = document.getElementById('filtrarBarrio');
     db.innerHTML = '';

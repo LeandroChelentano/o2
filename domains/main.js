@@ -1,6 +1,4 @@
-
-////////////////////////////////////////////////////////////////// VERIFICAR DATOS Y SI ES DATO NUMERICO
-
+// Funciones auxiliares para verificar elementos vacios.
 var arrEmpty = new Array();
 function empty() {
     for (let i = 0; i < arrEmpty.length; i++) {
@@ -15,6 +13,7 @@ function empty() {
     }
 }
 
+// Funciones auxiliares para verificar elementos integer.
 var arrInteger = new Array();
 function integer() {
     for (let i = 0; i < arrInteger.length; i++) {
@@ -29,7 +28,7 @@ function integer() {
     }
 }
 
-//////////////////////////////////////////////////////////////////// CLIENTES
+// Seccion de clientes
 
 var clientes = new Array();
 var clientesBackup = new Array();
@@ -41,6 +40,7 @@ var telefono;
 var eMail;
 var direccion;
 
+// Funcion empleada para refresacar todos componentes del html de forma conjunta 
 function refrescarClientes() {
     clearClientes();
     
@@ -53,6 +53,8 @@ function refrescarClientes() {
     showClientes();
 }
 
+// Esta funcion saca el contenido de los campos de texto, almancenandolos en variables globales,
+// las cuales pueden ser leidas por otras funciones
 function getClientes() {
     cI = document.getElementById('cCI').value;
     nombre = document.getElementById('cNombre').value;
@@ -62,6 +64,7 @@ function getClientes() {
     direccion = document.getElementById('cDireccion').value;
 }
 
+// Funcion mediante la cual se verifica y posteriormente agrega un nuevo objeto clientes al array 'clientes'
 function clientesAdd() {
     getClientes();
     arrEmpty.push(cI,nombre,apellido,telefono,eMail,direccion);
@@ -97,6 +100,7 @@ function clientesAdd() {
     }
 }
 
+// Verifica y remueve un cliente del array 'clientes'
 function clientesRemove() {
     var index = document.getElementById('dbClientes').selectedIndex;
     if (clientes[index].Uso > 0) {
@@ -108,6 +112,7 @@ function clientesRemove() {
     }
 }
 
+// Muestra los clientes almacenados en su select correspondiente
 function showClientes() {
     var db = document.getElementById('dbClientes');
     db.innerHTML = '';
@@ -118,6 +123,7 @@ function showClientes() {
     }
 }
 
+// Coloca los datos del index del array 'clientes' en los campos de texto
 function selCliente() {
     var index = document.getElementById('dbClientes').selectedIndex;
 
@@ -129,6 +135,7 @@ function selCliente() {
     document.getElementById('cDireccion').value = clientes[index].Direccion;
 }
 
+// Limpia los campos de texto referentes a los clientes
 function clearClientes() {
     document.getElementById('cCI').value = '';
     document.getElementById('cNombre').value = '';
@@ -138,6 +145,7 @@ function clearClientes() {
     document.getElementById('cDireccion').value = '';
 }
 
+// Modifica el clientes seleccionado, con previa validacion
 function clientesModify() {
     var index = document.getElementById('dbClientes').selectedIndex;
     getClientes();
@@ -176,24 +184,22 @@ function clientesModify() {
 
 
 
-////////////////////////////////////////////////////////////// VENDEDORES
 
 
 
 
+
+
+// Seccion de vendedores
 
 var vendedores = new Array();
 var vendedoresBackup = new Array();
 
-// var cI;
-// var nombre;
-// var apellido;
-// var telefono;
-// var eMail;
-// var direccion;
+// Demas atributos no especificados puesto que son compatridos con clientes,
+// se toma la determinacion de evadir causantes de 'bugs'
 var segsoc;
 
-
+// Funcion empleada para refrescar los componentes que refieren al proceso de vendedores
 function refrescarVendedores() {
     clearVendedores();
     
@@ -201,11 +207,11 @@ function refrescarVendedores() {
 
     loadClientes();
     loadVendedores();
-    // loadVentas();
 
     showVendedores();
 }
 
+// Funcion encargada de refrescar las variables globales
 function getVendedores() {
     cI = document.getElementById('vCI').value;
     nombre = document.getElementById('vNombre').value;
@@ -216,6 +222,7 @@ function getVendedores() {
     segsoc = document.getElementById('vSegSoc').value;
 }
 
+// Funcion que agrega vendedores, previa validacion
 function vendedoresAdd() {
     getVendedores();
     arrEmpty.push(cI,nombre,apellido,telefono,eMail,direccion,segsoc);
@@ -253,6 +260,7 @@ function vendedoresAdd() {
     }
 }
 
+// Funcion que remueve vendedores, si este no se encuentra en uso
 function vendedoresRemove() {
     var index = document.getElementById('dbVendedores').selectedIndex;
     if (vendedores[index].Uso > 0) {
@@ -264,6 +272,7 @@ function vendedoresRemove() {
     }
 }
 
+// Funcion empleada para mostrar los vendedores en el campo correspondiente
 function showVendedores() {
     var db = document.getElementById('dbVendedores');
     db.innerHTML = '';
@@ -274,6 +283,7 @@ function showVendedores() {
     }
 }
 
+// Funcion encargada de mostrar los atributos del vendedor seleccionado en los campos correspondientes
 function selVendedor() {
     var index = document.getElementById('dbVendedores').selectedIndex;
 
@@ -287,6 +297,7 @@ function selVendedor() {
     document.getElementById('carteraBox').value = '$ ' + vendedores[index].Cartera;
 }
 
+// Funcion empleada para limpiar los campos de texto referidos a los vendedores
 function clearVendedores() {
     document.getElementById('vCI').value = '';
     document.getElementById('vNombre').value = '';
@@ -298,6 +309,7 @@ function clearVendedores() {
     document.getElementById('carteraBox').value = '';
 }
 
+// Funcion empleada para modificar el vendedor seleciconado, previa modificacion
 function vendedoresModify() {
     var index = document.getElementById('dbVendedores').selectedIndex;
     getVendedores();
@@ -345,28 +357,31 @@ function vendedoresModify() {
 
 
 
-///////////////////////////////////////////////////////  PROPIEDADES
 
 
 
+
+
+// Seccion de Propiedades
 
 var propiedades = new Array();
 var propiedadesBackup = new Array();
 
-var tipo; //combo
+var tipo;
 var direccion;
 var barrio;
 var ciudad;
 var metros;
 var dormitorios;
 var banos;
-var garage; //combo
-var parrillero; //combo
-var wifi; //combo
-var mascotas; //combo
+var garage;
+var parrillero;
+var wifi;
+var mascotas;
 var precio;
-var propietario; //combo
+var propietario;
 
+// Funcion para refresacar las variables globales de las propiedades
 function getData() {
     if (document.getElementById('v1').checked) {
         tipo = 'Casa';
@@ -422,6 +437,7 @@ function getData() {
     propietario = clientes[i].Id;
 }
 
+// Funcion para refresacar todos los componentes de las propiedades
 function refrescarPropiedades() {
     propertiesClear();
 
@@ -435,6 +451,7 @@ function refrescarPropiedades() {
     showProperties();
 }
 
+// Funcion que carga los barrios en el select correspondientes, para posterior seleccion
 function displayBarrios() {
     var db = document.getElementById('propertiesBarrio');
     db.innerHTML = '';
@@ -444,7 +461,8 @@ function displayBarrios() {
         db.add(line);
     }
 }
-    
+
+// Funcion que muestra la ciudad correspondiente al barrio elegido
 function displayCiudad() {
     var index = document.getElementById('propertiesBarrio').selectedIndex;
     for (let i = 0; i < ciudades.length; i++) {
@@ -454,6 +472,7 @@ function displayCiudad() {
     }
 }
 
+// Funcion utilizada para agregar una propiedad, con validacion previa
 function propertiesAdd() {
     getData();
     if (document.getElementById('propertiesBarrio').selectedIndex == -1) {
@@ -496,8 +515,7 @@ function propertiesAdd() {
                         Propietario : parseInt(propietario),
                         Vendida     : 0 
                     })
-
-                    // propietario por id
+                    
                     for (let i = 0; i < clientes.length; i++) {
                         if (clientes[i].Id == propietario) {
                             clientes[i].Uso = clientes[i].Uso + 1;
@@ -513,6 +531,7 @@ function propertiesAdd() {
     }
 }
 
+// Funcion empleada para mostrar los datos registrados sobre las propiedades en el array correspondiente
 function showProperties() {
     var db = document.getElementById('dbPropiedades');
     db.innerHTML = "";
@@ -536,6 +555,7 @@ function showProperties() {
     loadPropietario();
 }
 
+// Funcion que muestra en los campos de texto correspondientes los datos seleccionados
 function selectP() {
     var index = document.getElementById('dbPropiedades').selectedIndex;
     if (propiedades[index].Tipo == 'Casa') {
@@ -557,9 +577,6 @@ function selectP() {
             document.getElementById('propertiesCiudad').value = `#${ciudades[i].Id} | ${ciudades[i].Nombre}`;
         }
     }
-    
-    // document.getElementById('propertiesBarrio').value = propiedades[index].Barrio;
-    // document.getElementById('propertiesCiudad').value = propiedades[index].Ciudad;
     
     document.getElementById('propertiesMetros').value = propiedades[index].Metros;
     document.getElementById('propertiesDormitorios').value = propiedades[index].Dormitorios;
@@ -600,10 +617,11 @@ function selectP() {
     document.getElementById('propertiesPropietario').selectedIndex = xx;
 }
 
+// Elimina una propiedad con validacion previa del indice seleccionado
 function propertiesRemove() {
     var index = document.getElementById('dbPropiedades').selectedIndex;
     if (propiedades[index].Vendida == 0) {
-        // propietario por id
+        
         for (let i = 0; i < clientes.length; i++) {
             if (clientes[i].Id == propietario) {
                 clientes[i].Uso = clientes[i].Uso - 1;
@@ -619,7 +637,7 @@ function propertiesRemove() {
     }
 }
 
-
+// Funcion empleada para limpiar los campos de texto referentes a las propiedades
 function propertiesClear() {
     document.getElementById('v1').checked = false;
     document.getElementById('v2').checked = false;
@@ -641,7 +659,7 @@ function propertiesClear() {
     document.getElementById('propertiesPropietario').selectedIndex = 0;
 }
 
-
+// Funcion que permite la modificacion de una propiedad seleccionada
 function propertiesModify() {
     var index = document.getElementById('dbPropiedades').selectedIndex;
     getData();
@@ -702,6 +720,7 @@ function propertiesModify() {
     }
 }
 
+// Muestra los propietario en el campo correspondiente para posterior seleccion
 function loadPropietario() {
     var db = document.getElementById('propertiesPropietario');
     db.innerHTML = '';
@@ -717,10 +736,13 @@ function loadPropietario() {
 
 
 
-///////////////////////////////////////////////////////////////////// VENTAS
 
 
 
+
+// Seccion de Ventas
+
+// Funcion que carga las propiedades para posterior seleccion
 function ventasLoadPropiedades() {
     var db = document.getElementById('sellPropiedad');
     db.innerHTML = '';
@@ -739,6 +761,7 @@ function ventasLoadPropiedades() {
     }
 }
 
+// Funcion que carga los compradores para posterior seleccion
 function ventasLoadCompradores() {
     var db = document.getElementById('sellComprador');
     db.innerHTML = '';
@@ -749,6 +772,7 @@ function ventasLoadCompradores() {
     }
 }
 
+// Funcion que carga los vendedores para posterior seleccion
 function ventasLoadVendedores() {
     var db = document.getElementById('sellVendedor');
     db.innerHTML = '';
@@ -768,6 +792,7 @@ var vMonto;
 var vComprador;
 var vVendedor;
 
+// Funcion empleada para refrescar todas los componentes de una u otra forma relacionados con ventas
 function refrescarVentas() {
     sellLimpiar();
 
@@ -789,6 +814,7 @@ function refrescarVentas() {
     showVentas();
 }
 
+// Funcion creada con el fin de refrescar las variables globales de las ventas
 function getVenta() {
     vFecha = document.getElementById('sellFecha').value;
     vPropiedad = document.getElementById('sellPropiedad').value;
@@ -797,6 +823,7 @@ function getVenta() {
     vVendedor = document.getElementById('sellVendedor').value;
 }
 
+// Funcion que valida todos los datos referentes a las ventas, corrige variables y finalmente realiza la venta
 function vender() {
     getVenta();
     arrEmpty.push(vFecha, vPropiedad, vComprador, vVendedor)
@@ -853,6 +880,7 @@ function vender() {
     }
 }
 
+// Funcion que limpia los campos de las ventas
 function sellLimpiar() {
     document.getElementById('sellPropiedad').selectedIndex = 0;
     document.getElementById('sellMonto').value = '';
@@ -860,6 +888,7 @@ function sellLimpiar() {
     document.getElementById('sellVendedor').selectedIndex = 0;
 }
 
+// Funcion que muestra en su lugar correspondiente todos los objetos de ventas
 function showVentas() {
     var db = document.getElementById('dbVentas');
     db.innerHTML = '';
@@ -892,6 +921,7 @@ function showVentas() {
     }
 }
 
+// Funcion que carga en monto de la propiedad seleccionada
 function monto() {
     var index = document.getElementById('sellPropiedad').selectedIndex;
     var box = document.getElementById('sellMonto');
@@ -904,15 +934,18 @@ function monto() {
 
 
 
-//////////////////////////////////////////////////////////////////// CIUDADES
 
 
+
+
+// Seccion de Ciudades
 
 var ciudades = new Array();
 var idCiudades = new Array();
 
 var ciudadNombre;
 
+// Funcion empleada para refrescar componentes relacionados con las ciudades
 function refrescarCiudadesBarrios() {
     barrioClear();
     ciudadClear();
@@ -935,10 +968,12 @@ function refrescarCiudadesBarrios() {
     showCiudades();
 }
 
+// Funcion que actualiza la valiable global correspondiente a la ciudad
 function getCiudades() {
     ciudadNombre = document.getElementById('ciudadNombre').value;
 }
 
+// Funcion que agrega una ciudad a los registros, previa validacion
 function ciudadAdd() {
     getCiudades();
     if (ciudadNombre == '') {
@@ -967,6 +1002,7 @@ function ciudadAdd() {
     }
 }
 
+// Funcion que elimina una ciudad, en caso de que no se encuentre en uso
 function ciudadRemove() {
     var index = document.getElementById('dbCiudades').selectedIndex;
     if (ciudades[index].Uso > 0) {
@@ -977,6 +1013,7 @@ function ciudadRemove() {
     }
 } 
 
+// Modifica una ciudad, previa validacion
 function ciudadModify() {
     getCiudades();
     var index = document.getElementById('dbCiudades').selectedIndex;
@@ -994,10 +1031,12 @@ function ciudadModify() {
     }
 }
 
+// Funcion empleada para limpiar el campo de texto del nombre de la ciudad
 function ciudadClear() {
     document.getElementById('ciudadNombre').value = '';
 }
 
+// Funcion que muestra las ciudades en su lugar correspondiente
 function showCiudades() {
     var db = document.getElementById('dbCiudades');
     db.innerHTML = '';
@@ -1008,11 +1047,13 @@ function showCiudades() {
     }
 }
 
+// Funcion que muestra el elemento en su campo correspondiente
 function selCiudad() {
     var index = document.getElementById('dbCiudades').selectedIndex;
     document.getElementById('ciudadNombre').value = ciudades[index].Nombre;
 }
 
+// Funcion que carga las ciudades en un select para ser asignadas a barrios
 function cargarCiudadesEnSel() {
     var db = document.getElementById('barrioCiudad');
     db.innerHTML = '';
@@ -1027,9 +1068,12 @@ function cargarCiudadesEnSel() {
 
 
 
-////////////////////////////////////////////////////////////////////////////////// BARRIOS
 
 
+
+
+
+// Seccion de Barrios
 
 var barrios = new Array();
 var idBarrios = new Array();
@@ -1037,12 +1081,14 @@ var idBarrios = new Array();
 var barrioNombre;
 var barrioCiudad;
 
+// Funcion empleada para refrescar las variables globales de laos barrios
 function getBarrios() {
     barrioNombre = document.getElementById('barrioNombre').value;
     var index = document.getElementById('barrioCiudad').selectedIndex;
     barrioCiudad = ciudades[index].Id; 
 }
 
+// Funcion que agrega un barrio previa validacion
 function barrioAdd() {
     getBarrios();
     if (barrioNombre == '') {
@@ -1078,6 +1124,7 @@ function barrioAdd() {
     }
 }
 
+// Funcion empleada para eliminar un barrio, si este no es encuentra en uso
 function barrioRemove() {
     var index = document.getElementById('dbBarrios').selectedIndex;
     var existence = false;
@@ -1099,6 +1146,7 @@ function barrioRemove() {
     refrescarCiudadesBarrios();
 } 
 
+// Funcion para modificar un barrio, previa validacion y modificacion de atributos complementarios
 function barrioModify() {
     getBarrios();
     var index = document.getElementById('dbBarrios').selectedIndex;
@@ -1114,7 +1162,7 @@ function barrioModify() {
         if (existence == true) {
             alert('No puedes eliminar un barrio en uso.')
         } else {
-            // si hay propiedad que tiene este barrio, cambiar ciudad
+            
             for (let i = 0; i < propiedades.length; i++) {
                 if (propiedades[i].Barrio == barrios[index].Id) {
                     propiedades[i].Ciudad = barrioCiudad
@@ -1144,12 +1192,14 @@ function barrioModify() {
     
 }
 
-function barrioClear() { //Final
+// Funcion empleada para limpiar los campos correctamentes a los barrios
+function barrioClear() {
     document.getElementById('barrioNombre').value = '';
     document.getElementById('barrioCiudad').selectedIndex = 0;
 }
 
-function showBarrios() { //Final
+// Funcion que muestra en el select correspondiente todos los barrios registrados
+function showBarrios() {
     var db = document.getElementById('dbBarrios');
     db.innerHTML = '';
     for (let i = 0; i < barrios.length; i++) {
@@ -1167,7 +1217,8 @@ function showBarrios() { //Final
     }
 }
 
-function selBarrio() { //Final
+// Funcion empleada para mostrar en el campo correspondiente todos los atributos de un barrios seleccionado
+function selBarrio() {
     var index = document.getElementById('dbBarrios').selectedIndex;
     document.getElementById('barrioNombre').value = barrios[index].Nombre;
     

@@ -95,7 +95,6 @@ function loadTransaccionesClientes() {
 // y el vendedor querealizó dicha transacción.
 function ventaMasCara() {
     ventaCara = Number.MIN_VALUE;
-    vendedorMasCara = '';
     if (ventas.length > 0){
         for (let i = 0; i < ventas.length; i++){
             if (ventas[i].Monto > ventaCara){
@@ -108,13 +107,14 @@ function ventaMasCara() {
             }
         }
     }
-    
+    let textoVentaCara = '';
     if(ventaCara > 0){
         textoVentaCara = `Vendedor: ${vendedorMasCara} - Monto: $${ventaCara}`;
     }
     else{
         textoVentaCara = `Vendedor: ${vendedorMasCara} - Monto: $`;
     }
+    console.log(textoVentaCara);
     document.getElementById('VentaMasCara').value = textoVentaCara;
 }
 
